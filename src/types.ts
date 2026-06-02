@@ -1,5 +1,5 @@
 /**
- * Shared Type Definitions for Sri Srinivasa Kirana & General Store
+ * Shared Type Definitions for Uma Maheshwara Kirana & General Stores
  */
 
 export interface UserProfile {

@@ -59,7 +59,7 @@ export function AuthPage({ login, loginWithGoogle }: AuthPageProps) {
           <Store className="w-8 h-8 text-[#F5A623]" />
         </div>
         <h2 className="text-3xl font-extrabold text-[#0F4C81] tracking-tight font-display">
-          Sri Srinivasa Kirana & General Store
+          Uma Maheshwara Kirana & General Stores
         </h2>
         <p className="mt-2 text-sm text-gray-600 px-4">
           Supercharge your Indian retail business with AI-powered stock intelligence

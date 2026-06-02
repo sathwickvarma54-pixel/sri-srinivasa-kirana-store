@@ -504,7 +504,7 @@ export async function seedDatabaseIfEmpty() {
       {
         id: "not_5",
         type: "system",
-        message: "System Setup: Welcome to Sri Srinivasa Kirana & General Store — Complete offline-first prototype database bootstrapped successfully.",
+        message: "System Setup: Welcome to Uma Maheshwara Kirana & General Stores — Complete offline-first prototype database bootstrapped successfully.",
         productId: null,
         isRead: false,
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
@@ -518,7 +518,7 @@ export async function seedDatabaseIfEmpty() {
 
     // 5. Seed Store Settings
     const settingsObj: StoreSettings = {
-      storeName: "Sri Srinivasa Kirana & General Store",
+      storeName: "Uma Maheshwara Kirana & General Stores",
       address: "12-34, Main Road, Near Clock Tower, Anantapur, AP, India",
       gstNumber: "37ABCDE1234F1Z5"
     };

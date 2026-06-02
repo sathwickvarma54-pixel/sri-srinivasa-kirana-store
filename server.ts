@@ -61,7 +61,7 @@ async function callOpenRouterWithKey(prompt: string, apiKeyToUse: string): Promi
       "Authorization": authHeader,
       "Content-Type": "application/json",
       "HTTP-Referer": "https://ai.studio/build",
-      "X-Title": "Sri Srinivasa Kirana & General Store"
+      "X-Title": "Uma Maheshwara Kirana & General Stores"
     },
     body: JSON.stringify(payload)
   });
@@ -113,7 +113,7 @@ app.post("/api/insights/forecast", async (req, res) => {
     const customApiKey = (req.headers["x-openrouter-api-key"] || req.headers["x-nvidia-api-key"]) as string | undefined;
     const { products, transactions, todayDate } = req.body;
 
-    const prompt = `You are a retail inventory AI for an Indian Kiran store called "Sri Srinivasa Kirana & General Store".
+    const prompt = `You are a retail inventory AI for an Indian Kiran store called "Uma Maheshwara Kirana & General Stores".
 
 Here is the current stock data:
 ${JSON.stringify(products, null, 2)}
@@ -246,7 +246,7 @@ async function setupServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Sri Srinivasa Kirana & General Store Server is running on port ${PORT}`);
+    console.log(`Uma Maheshwara Kirana & General Stores Server is running on port ${PORT}`);
   });
 }
 

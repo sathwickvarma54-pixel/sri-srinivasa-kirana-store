@@ -344,7 +344,7 @@ export default function App() {
               <Store className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-sm font-extrabold tracking-tight font-display text-white">Sri Srinivasa Kirana & General Store</h1>
+              <h1 className="text-sm font-extrabold tracking-tight font-display text-white">Uma Maheshwara Kirana & General Stores</h1>
               <span className="text-[9px] uppercase tracking-widest text-[#F5A623] font-bold block leading-none mt-0.5">India B2B Retail</span>
             </div>
           </div>
@@ -426,7 +426,7 @@ export default function App() {
                 <div>
                   <span className="text-[9px] font-extrabold text-[#0F4C81] block uppercase tracking-widest font-mono">India B2B Retail</span>
                   <h1 className="text-sm font-bold text-[#0F4C81] font-display">
-                    {storeSettings?.storeName || "Sri Srinivasa Kirana Stores"}
+                    {storeSettings?.storeName || "Uma Maheshwara Kirana Stores"}
                   </h1>
                 </div>
               </div>
@@ -510,7 +510,7 @@ export default function App() {
               </div>
 
               <div className="p-3 bg-gray-50 rounded-xl font-mono text-[9px] text-gray-400 text-center leading-relaxed">
-                Sri Srinivasa Kirana (v1.0.0)<br />Secured sandbox.
+                Uma Maheshwara Kirana (v1.0.0)<br />Secured sandbox.
               </div>
             </div>
             <div className="flex-1" onClick={() => setMobileMenuOpen(false)} />

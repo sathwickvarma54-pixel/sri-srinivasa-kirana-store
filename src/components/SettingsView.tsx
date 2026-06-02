@@ -26,7 +26,7 @@ export function SettingsView({
   role 
 }: SettingsViewProps) {
   // Store form states
-  const [storeName, setStoreName] = useState(storeSettings?.storeName || "Sri Srinivasa Kirana & General Store");
+  const [storeName, setStoreName] = useState(storeSettings?.storeName || "Uma Maheshwara Kirana & General Stores");
   const [address, setAddress] = useState(storeSettings?.address || "12-34, Main Road, Near Clock Tower, Anantapur, AP");
   const [gst, setGst] = useState(storeSettings?.gstNumber || "37ABCDE1234F1Z5");
   const [nvidiaApiKey, setNvidiaApiKey] = useState(storeSettings?.nvidiaApiKey || "");
@@ -70,7 +70,7 @@ export function SettingsView({
           <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
             <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1 font-display border-b pb-2">
               <Store className="w-4.5 h-4.5 text-[#F5A623]" />
-              <span>Sri Srinivasa Kirana settings</span>
+              <span>Uma Maheshwara Kirana settings</span>
             </h3>
 
             {!canEditStore && (
