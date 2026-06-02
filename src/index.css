@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F4C81;
+  --color-primary-light: #1A6DB5;
+  --color-primary-dark: #083260;
+  --color-accent: #F5A623;
+  --color-accent-light: #FFC453;
+  --color-danger: #E63946;
+  --color-warning: #F4A261;
+  --color-success: #2A9D8F;
+  --color-bg-main: #F0F4F8;
+  --color-bg-card: #FFFFFF;
+  --color-text-primary: #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-muted: #718096;
+  --color-border: #E2E8F0;
+  
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Custom keyframes for pulsating stock progress bar */
+@keyframes stock-pulse {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1.05);
+  }
+  50% {
+    opacity: 0.35;
+    filter: brightness(1.25);
+  }
+}
+
+/* Stock volume indicator base and pulsing state when stock is low */
+.stock-volume-indicator.pulse-critical {
+  animation: stock-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+

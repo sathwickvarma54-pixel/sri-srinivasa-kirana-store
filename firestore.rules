@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reuseable, hardened global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Dynamic role lookup checking
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function getRole() {
+      return getUserData().role;
+    }
+
+    function isRole(role) {
+      return isSignedIn() && getRole() == role;
+    }
+
+    // --- Users Collection ---
+    match /users/{userId} {
+      allow get, list: if isSignedIn();
+      allow create: if isSignedIn() && userId == request.auth.uid && incoming().role in ['owner', 'manager', 'staff'];
+      allow update: if isSignedIn() && (userId == request.auth.uid || isRole('owner'));
+      allow delete: if isSignedIn() && isRole('owner');
+    }
+
+    // --- Products Collection ---
+    match /products/{productId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (isRole('owner') || isRole('manager'));
+      allow update: if isSignedIn() && (
+        isRole('owner') || isRole('manager') || 
+        (incoming().diff(existing()).affectedKeys().hasOnly(['currentStock', 'updatedAt']))
+      );
+      allow delete: if isSignedIn() && (isRole('owner') || isRole('manager'));
+    }
+
+    // --- Transactions Collection ---
+    match /transactions/{transactionId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (isRole('owner') || isRole('manager') || incoming().staffId == request.auth.uid);
+      allow update, delete: if isSignedIn() && (isRole('owner') || isRole('manager'));
+    }
+
+    // --- Suppliers Collection ---
+    match /suppliers/{supplierId} {
+      allow read: if isSignedIn() && (isRole('owner') || isRole('manager'));
+      allow create, update, delete: if isSignedIn() && (isRole('owner') || isRole('manager'));
+    }
+
+    // --- Notifications Collection ---
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && incoming().diff(existing()).affectedKeys().hasOnly(['isRead']);
+      allow delete: if isSignedIn() && (isRole('owner') || isRole('manager'));
+    }
+
+    // --- Settings Collection ---
+    match /settings/{settingsId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn() && isRole('owner');
+    }
+  }
+}

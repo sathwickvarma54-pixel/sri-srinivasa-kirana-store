@@ -1,0 +1,135 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile in the Kiran Store containing auth info and store role.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique user ID" },
+        "name": { "type": "string", "description": "Full name of the user" },
+        "email": { "type": "string", "description": "Email address of the user" },
+        "phone": { "type": "string", "description": "Contact number with Indian standard formatting" },
+        "role": { "type": "string", "enum": ["owner", "manager", "staff"], "description": "Access level of the user" },
+        "storeId": { "type": "string", "description": "Associated store ID" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of profile creation" }
+      },
+      "required": ["id", "name", "email", "phone", "role", "storeId", "createdAt"]
+    },
+    "Product": {
+      "title": "Product Entity",
+      "description": "A grocery, dairy, beverage, FMCG, or other retail item stocked in the store.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productName": { "type": "string" },
+        "localName": { "type": "string" },
+        "category": { "type": "string", "enum": ["Grocery", "Dairy", "Beverage", "FMCG", "Stationery", "Snacks", "Other"] },
+        "sku": { "type": "string" },
+        "barcode": { "type": "string" },
+        "unit": { "type": "string", "enum": ["kg", "litre", "piece", "packet", "dozen", "box"] },
+        "purchasePrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "currentStock": { "type": "number" },
+        "minStockLevel": { "type": "number" },
+        "expiryDate": { "type": "string" },
+        "supplierId": { "type": "string" },
+        "storageLocation": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "discontinued", "seasonal"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id", "productName", "localName", "category", "sku", "barcode", "unit",
+        "purchasePrice", "sellingPrice", "currentStock", "minStockLevel", "supplierId",
+        "storageLocation", "status", "createdAt", "updatedAt"
+      ]
+    },
+    "Transaction": {
+      "title": "Stock Transaction",
+      "description": "Any movement of stock in or out of the store inventory.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["inward", "outward", "adjustment", "damage", "return"] },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "quantity": { "type": "number" },
+        "price": { "type": "number" },
+        "supplierId": { "type": "string" },
+        "staffId": { "type": "string" },
+        "staffName": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "type", "productId", "productName", "quantity", "price", "staffId", "staffName", "timestamp", "notes"]
+    },
+    "Supplier": {
+      "title": "Supplier Contact",
+      "description": "Distributors and wholesalers providing goods to the store.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "supplierName": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "address": { "type": "string" },
+        "products": { "type": "array", "items": { "type": "string" } },
+        "pendingAmount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "supplierName", "phone", "whatsapp", "address", "products", "pendingAmount", "createdAt"]
+    },
+    "Notification": {
+      "title": "Store Notification",
+      "description": "System or inventory-triggered alert message.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["low_stock", "expiry", "out_of_stock", "payment_due", "system"] },
+        "message": { "type": "string" },
+        "productId": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "severity": { "type": "string", "enum": ["info", "warning", "critical"] }
+      },
+      "required": ["id", "type", "message", "isRead", "timestamp", "severity"]
+    },
+    "StoreSettings": {
+      "title": "Store Settings",
+      "description": "Global config for the store.",
+      "type": "object",
+      "properties": {
+        "storeName": { "type": "string" },
+        "address": { "type": "string" },
+        "gstNumber": { "type": "string" }
+      },
+      "required": ["storeName", "address", "gstNumber"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user account profiles mapping their store roles."
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Product inventory database containing pricing, stock level, and category info."
+    },
+    "transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Log of stock inward, outward, damage adjustments, and returns."
+    },
+    "suppliers/{supplierId}": {
+      "schema": "Supplier",
+      "description": "Suppliers and wholesalers contacts linked to products and ledger."
+    },
+    "notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Alert messages for low stock, expiring goods, and other ledger updates."
+    },
+    "settings/{settingsId}": {
+      "schema": "StoreSettings",
+      "description": "Global store information such as business name, address, and GSTIN."
+    }
+  }
+}
