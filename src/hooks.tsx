@@ -33,7 +33,8 @@ export function useAuth() {
     setLoading(true);
     try {
       if (
-        (email === "owner@srisrinivasa.com" && passwordStr === "SriSrinivasa@2026")
+        (email === "owner@srisrinivasa.com" && passwordStr === "SriSrinivasa@2026") ||
+        (email === "owner@umakirana.com" && passwordStr === "UmaKirana@2026")
       ) {
         const mockUser = { uid: "owner_uid", email };
         const mockProfile: UserProfile = {
