@@ -163,7 +163,7 @@ export function TransactionsView({
             setIsRecordingOpen(true);
             setErrorVal("");
           }}
-          className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+          className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
         >
           <Plus className="w-4 h-4" />
           <span>New ledger Entry</span>
@@ -177,7 +177,7 @@ export function TransactionsView({
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
             <input
               type="text"
-              className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+              className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#166534]"
               placeholder="Search products or staff..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -203,7 +203,7 @@ export function TransactionsView({
 
         <button
           onClick={triggerExcelExport}
-          className="px-4 py-2 bg-[#2A9D8F] hover:bg-emerald-650 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 shadow-sm shrink-0 self-start sm:self-auto uppercase tracking-wider text-[10px]"
+          className="px-4 py-2 bg-[#10B981] hover:bg-emerald-700 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 shadow-sm shrink-0 self-start sm:self-auto uppercase tracking-wider text-[10px]"
         >
           <FileSpreadsheet className="w-4 h-4" />
           <span>Export Excel (SheetJS)</span>
@@ -212,7 +212,11 @@ export function TransactionsView({
 
       {/* Ledger Table */}
       <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-        {filteredTransactions.length === 0 ? (
+        {transactions.length === 0 ? (
+          <div className="py-12 text-center text-gray-500 text-xs">
+            No transaction records found. Create your first ledger entry to begin.
+          </div>
+        ) : filteredTransactions.length === 0 ? (
           <div className="py-12 text-center text-gray-500 text-xs">
             No transactions registered matching current filter query parameters.
           </div>
@@ -241,10 +245,10 @@ export function TransactionsView({
                       </td>
                       <td className="py-3 px-4 font-sans">
                         <span className={`px-2.5 py-0.5 rounded-lg text-[9px] font-bold uppercase tracking-wider ${
-                          t.type === "inward" ? "bg-emerald-100 text-emerald-800" :
-                          t.type === "outward" ? "bg-blue-100 text-blue-800" :
+                          t.type === "inward" ? "bg-amber-100 text-amber-800" :
+                          t.type === "outward" ? "bg-emerald-100 text-emerald-800" :
                           t.type === "damage" ? "bg-red-100 text-red-800" :
-                          t.type === "return" ? "bg-purple-100 text-purple-850" : "bg-gray-150 text-gray-700"
+                          t.type === "return" ? "bg-purple-100 text-purple-850" : "bg-gray-100 text-gray-700"
                         }`}>
                           {t.type}
                         </span>
@@ -270,8 +274,8 @@ export function TransactionsView({
       {isRecordingOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 backdrop-blur-xs font-sans">
           <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto border border-gray-100">
-            <h2 className="text-base font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1.5 font-display border-b border-gray-100 pb-3">
-              <ShoppingCart className="w-5 h-5 text-[#F5A623]" />
+            <h2 className="text-base font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1.5 font-display border-b border-gray-100 pb-3">
+              <ShoppingCart className="w-5 h-5 text-[#F59E0B]" />
               <span>Record Counter Ledger entry</span>
             </h2>
 
@@ -300,7 +304,7 @@ export function TransactionsView({
                       onClick={() => handleTypeSelect(item.id as any)}
                       className={`py-2 px-1 text-[10px] font-bold rounded-lg border text-center transition-all ${
                         txType === item.id 
-                          ? "bg-[#0F4C81] text-white border-[#0F4C81] shadow-sm" 
+                          ? "bg-[#166534] text-white border-[#166534] shadow-sm" 
                           : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
                       }`}
                     >
@@ -326,7 +330,7 @@ export function TransactionsView({
               </div>
 
               {activeProduct && (
-                <div className="p-2.5 bg-[#F0F4F8] rounded-xl text-[11px] text-gray-600 flex justify-between items-center font-sans">
+                <div className="p-2.5 bg-emerald-50 rounded-xl text-[11px] text-gray-600 flex justify-between items-center font-sans">
                   <span>Current Available Stock: <b>{activeProduct.currentStock} {activeProduct.unit}</b></span>
                   <span>Safety Level: <b>{activeProduct.minStockLevel} {activeProduct.unit}</b></span>
                 </div>
@@ -339,7 +343,7 @@ export function TransactionsView({
                     type="number"
                     min="1"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:ring-1 focus:ring-[#166534]"
                     value={qty}
                     onChange={(e) => setQty(parseInt(e.target.value) || 1)}
                   />
@@ -351,7 +355,7 @@ export function TransactionsView({
                     type="number"
                     step="0.01"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:ring-1 focus:ring-[#166534]"
                     value={customPrice || ""}
                     onChange={(e) => setCustomPrice(parseFloat(e.target.value) || 0)}
                   />
@@ -377,7 +381,7 @@ export function TransactionsView({
               <div>
                 <label className="block text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Receipt reference notes</label>
                 <textarea
-                  className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:ring-1 focus:ring-[#0F4C81]"
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:ring-1 focus:ring-[#166534]"
                   rows={2}
                   placeholder="E.g. Paid cash, UPI completed, damaged on arrival..."
                   value={notes}
@@ -396,7 +400,7 @@ export function TransactionsView({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-[#0F4C81] text-white font-bold rounded-xl hover:bg-[#1A6DB5] flex items-center gap-1.5"
+                  className="px-4 py-2 bg-[#166534] text-white font-bold rounded-xl hover:bg-[#14532D] flex items-center gap-1.5"
                 >
                   <Check className="w-4 h-4" />
                   <span>{submitting ? "Writing..." : "Commit Transaction"}</span>

@@ -225,8 +225,8 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 font-display">AI Intelligence Assistant</h1>
           <p className="text-xs text-gray-500 font-sans">Secure, OpenRouter-powered Google Gemini LLM diagnostics parsing real-time store trends</p>
         </div>
-        <div className="flex items-center gap-1 bg-[#0F4C81]/10 text-[#0F4C81] border border-[#0F4C81]/20 px-3 py-1 rounded-xl text-xs font-semibold">
-          <ShieldCheck className="w-4 h-4 shrink-0 text-[#2A9D8F]" />
+        <div className="flex items-center gap-1 bg-[#166534]/10 text-[#166534] border border-[#166534]/20 px-3 py-1 rounded-xl text-xs font-semibold">
+          <ShieldCheck className="w-4 h-4 shrink-0 text-[#10B981]" />
           <span>Gemini OpenRouter Secured Proxy</span>
         </div>
       </div>
@@ -237,7 +237,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
           <div className="flex items-start justify-between">
             <div className="flex gap-2.5 items-center">
               <div className="p-2.5 bg-blue-50 text-blue-700 rounded-xl">
-                <TrendingUp className="w-5 h-5 text-[#0F4C81]" />
+                <TrendingUp className="w-5 h-5 text-[#166534]" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900 font-display">Demand Out-of-Stock Forecast</h3>
@@ -247,7 +247,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
             <button
               onClick={triggerForecastAnalysis}
               disabled={loadingCard.forecast}
-              className="px-3 py-1.5 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+              className="px-3 py-1.5 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
             >
               {loadingCard.forecast ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
               <span>{loadingCard.forecast ? "Analyzing..." : "Analyze"}</span>
@@ -301,7 +301,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
           <div className="flex items-start justify-between">
             <div className="flex gap-2.5 items-center">
               <div className="p-2.5 bg-orange-50 text-orange-700 rounded-xl">
-                <Hourglass className="w-5 h-5 text-[#F4A261]" />
+                <Hourglass className="w-5 h-5 text-[#F59E0B]" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900 font-display">Shelf Expiry Diagnostics</h3>
@@ -311,7 +311,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
             <button
               onClick={triggerExpiryAnalysis}
               disabled={loadingCard.expiry}
-              className="px-3 py-1.5 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+              className="px-3 py-1.5 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
             >
               {loadingCard.expiry ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
               <span>{loadingCard.expiry ? "Analyzing..." : "Analyze"}</span>
@@ -336,10 +336,10 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
                 <tbody className="divide-y divide-gray-100 text-[11px] text-gray-700 font-sans">
                   {expiryData.map((e, idx) => (
                     <tr key={idx} className="hover:bg-gray-50">
-                      <td className="py-2 font-bold text-gray-950">{e.productName}</td>
+                      <td className="py-2 font-bold text-gray-955">{e.productName}</td>
                       <td className="py-2 font-mono">{e.currentStock} pcs</td>
                       <td className="py-2 font-mono text-red-655 font-bold">{e.daysLeft} days</td>
-                      <td className="py-2 font-bold text-blue-800 text-[10px] leading-tight max-w-[130px]">{e.recommendedAction}</td>
+                      <td className="py-2 font-bold text-emerald-800 text-[10px] leading-tight max-w-[130px]">{e.recommendedAction}</td>
                       <td className="py-2 font-mono font-bold text-green-700 bg-green-50 px-1 py-0.5 rounded text-[10px] w-fit">{e.suggestedDiscount || "0%"}</td>
                       <td className="py-2 text-right">
                         <span className={`px-1.5 py-0.5 rounded text-[9px] font-extrabold uppercase ${
@@ -375,7 +375,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
             <button
               onClick={triggerSlowStockAnalysis}
               disabled={loadingCard.slow}
-              className="px-3 py-1.5 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+              className="px-3 py-1.5 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
             >
               {loadingCard.slow ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
               <span>{loadingCard.slow ? "Analyzing..." : "Analyze"}</span>
@@ -400,13 +400,13 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
                 <tbody className="divide-y divide-gray-100 text-[11px] text-gray-700 font-sans">
                   {slowData.map((s, idx) => (
                     <tr key={idx} className="hover:bg-gray-50">
-                      <td className="py-2 font-bold text-gray-950">{s.productName}</td>
+                      <td className="py-2 font-bold text-gray-955">{s.productName}</td>
                       <td className="py-2 font-mono">{s.currentStock} pcs</td>
                       <td className="py-2 font-mono font-bold text-red-550">{s.salesLast30Days} units</td>
                       <td className="py-2 font-mono font-bold text-slate-800">₹{s.capitalLocked}</td>
                       <td className="py-2">
                         <span className={`px-1.5 py-0.5 rounded text-[9px] font-extrabold uppercase ${
-                          s.label === "DEAD" ? "bg-red-100 text-red-700" : "bg-[#F4A261]/20 text-[#A0522D]"
+                          s.label === "DEAD" ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-800"
                         }`}>
                           {s.label}
                         </span>
@@ -428,8 +428,8 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
         <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
           <div className="flex items-start justify-between">
             <div className="flex gap-2.5 items-center">
-              <div className="p-2.5 bg-teal-50 text-teal-750 rounded-xl">
-                <Activity className="w-5 h-5 text-[#2A9D8F]" />
+              <div className="p-2.5 bg-emerald-50 text-emerald-800 rounded-xl">
+                <Activity className="w-5 h-5 text-[#10B981]" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900 font-display">Business Health narrative</h3>
@@ -439,7 +439,7 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
             <button
               onClick={triggerHealthAnalysis}
               disabled={loadingCard.health}
-              className="px-3 py-1.5 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+              className="px-3 py-1.5 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-bold rounded-lg shadow-sm disabled:bg-gray-300 flex items-center gap-1.5 transition-colors uppercase tracking-wider"
             >
               {loadingCard.health ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
               <span>{loadingCard.health ? "Analyzing..." : "Analyze"}</span>
@@ -450,18 +450,18 @@ export function AIInsightsView({ products, transactions, onCallGemini }: AIInsig
 
           {healthData ? (
             <div className="space-y-4 p-3 bg-gray-50 rounded-xl border border-gray-100 mt-2">
-              <p className="text-xs text-slate-700 leading-relaxed font-sans first-letter:text-2xl first-letter:font-bold first-letter:text-[#0F4C81] first-letter:mr-1">
+              <p className="text-xs text-slate-700 leading-relaxed font-sans first-letter:text-2xl first-letter:font-bold first-letter:text-[#166534] first-letter:mr-1">
                 {healthData.summary}
               </p>
 
-              <div className="p-3 bg-[#E8F0FE] rounded-lg border border-[#C2D7FA] flex items-center justify-between">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 flex items-center justify-between">
                 <div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-blue-700 block font-mono">Prioritized action item this week</span>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-800 block font-mono">Prioritized action item this week</span>
                   <span className="text-xs font-extrabold text-slate-800 block mt-0.5 font-sans">
                     {healthData.prioritizedAction}
                   </span>
                 </div>
-                <IndianRupee className="w-5 h-5 text-blue-700 font-medium shrink-0" />
+                <IndianRupee className="w-5 h-5 text-[#166534] font-medium shrink-0" />
               </div>
             </div>
           ) : (

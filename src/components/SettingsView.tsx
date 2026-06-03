@@ -26,11 +26,11 @@ export function SettingsView({
   role 
 }: SettingsViewProps) {
   // Store form states
-  const [storeName, setStoreName] = useState(storeSettings?.storeName || "Uma Maheshwara Kirana & General Stores");
-  const [address, setAddress] = useState(storeSettings?.address || "12-34, Main Road, Near Clock Tower, Anantapur, AP");
-  const [gst, setGst] = useState(storeSettings?.gstNumber || "37ABCDE1234F1Z5");
-  const [nvidiaApiKey, setNvidiaApiKey] = useState(storeSettings?.nvidiaApiKey || "");
-  const [openRouterApiKey, setOpenRouterApiKey] = useState(storeSettings?.openRouterApiKey || "");
+  const [storeName, setStoreName] = useState(storeSettings?.storeName ?? "");
+  const [address, setAddress] = useState(storeSettings?.address ?? "");
+  const [gst, setGst] = useState(storeSettings?.gstNumber ?? "");
+  const [nvidiaApiKey, setNvidiaApiKey] = useState(storeSettings?.nvidiaApiKey ?? "");
+  const [openRouterApiKey, setOpenRouterApiKey] = useState(storeSettings?.openRouterApiKey ?? "");
   const [saving, setSaving] = useState(false);
 
   const canEditStore = role === "owner";
@@ -68,9 +68,9 @@ export function SettingsView({
         <div className="md:col-span-2 space-y-6">
           {/* Section 1: Store Properties Form (Only Owner can edit) */}
           <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
-            <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1 font-display border-b pb-2">
-              <Store className="w-4.5 h-4.5 text-[#F5A623]" />
-              <span>Uma Maheshwara Kirana settings</span>
+            <h3 className="text-sm font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1 font-display border-b pb-2">
+              <Store className="w-4.5 h-4.5 text-[#F59E0B]" />
+              <span>{storeName ? `${storeName} settings` : "Store settings"}</span>
             </h3>
 
             {!canEditStore && (
@@ -86,7 +86,7 @@ export function SettingsView({
                 <input
                   type="text"
                   disabled={!canEditStore}
-                  className="w-full px-3 py-2 rounded-xl border font-bold text-slate-800 focus:ring-1 focus:ring-[#0F4C81] disabled:bg-gray-50 disabled:text-gray-400"
+                  className="w-full px-3 py-2 rounded-xl border font-bold text-slate-800 focus:ring-1 focus:ring-[#166534] disabled:bg-gray-50 disabled:text-gray-400"
                   value={storeName}
                   onChange={(e) => setStoreName(e.target.value)}
                 />
@@ -97,7 +97,7 @@ export function SettingsView({
                 <input
                   type="text"
                   disabled={!canEditStore}
-                  className="w-full px-3 py-2 rounded-xl border font-semibold text-slate-800 focus:ring-1 focus:ring-[#0F4C81] disabled:bg-gray-50 disabled:text-gray-400"
+                  className="w-full px-3 py-2 rounded-xl border font-semibold text-slate-800 focus:ring-1 focus:ring-[#166534] disabled:bg-gray-50 disabled:text-gray-400"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
@@ -108,8 +108,8 @@ export function SettingsView({
                 <input
                   type="text"
                   disabled={!canEditStore}
-                  className="w-full px-3 py-2 rounded-xl border font-mono font-bold text-slate-800 focus:ring-1 focus:ring-[#0F4C81] disabled:bg-gray-50 disabled:text-gray-400"
-                  placeholder="37ABCDE1234F1Z5"
+                  className="w-full px-3 py-2 rounded-xl border font-mono font-bold text-slate-800 focus:ring-1 focus:ring-[#166534] disabled:bg-gray-50 disabled:text-gray-400"
+                  placeholder="Enter GSTIN"
                   value={gst}
                   onChange={(e) => setGst(e.target.value)}
                 />
@@ -120,7 +120,7 @@ export function SettingsView({
                 <input
                   type="password"
                   disabled={!canEditStore}
-                  className="w-full px-3 py-2 rounded-xl border font-mono font-semibold text-slate-800 focus:ring-1 focus:ring-[#0F4C81] disabled:bg-gray-50 disabled:text-gray-400 font-sans"
+                  className="w-full px-3 py-2 rounded-xl border font-mono font-semibold text-slate-800 focus:ring-1 focus:ring-[#166534] disabled:bg-gray-50 disabled:text-gray-400 font-sans"
                   placeholder="sk-or-••••••••••••••••••••••••"
                   value={openRouterApiKey}
                   onChange={(e) => setOpenRouterApiKey(e.target.value)}
@@ -133,7 +133,7 @@ export function SettingsView({
                 <input
                   type="password"
                   disabled={!canEditStore}
-                  className="w-full px-3 py-2 rounded-xl border font-mono font-semibold text-slate-800 focus:ring-1 focus:ring-[#0F4C81] disabled:bg-gray-50 disabled:text-gray-400 font-sans"
+                  className="w-full px-3 py-2 rounded-xl border font-mono font-semibold text-slate-800 focus:ring-1 focus:ring-[#166534] disabled:bg-gray-50 disabled:text-gray-400 font-sans"
                   placeholder="nvapi-••••••••••••••••••••••••"
                   value={nvidiaApiKey}
                   onChange={(e) => setNvidiaApiKey(e.target.value)}
@@ -145,7 +145,7 @@ export function SettingsView({
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white font-bold rounded-xl shadow-sm flex items-center gap-1 transition-transform uppercase tracking-wider text-[10px]"
+                  className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white font-bold rounded-xl shadow-sm flex items-center gap-1 transition-transform uppercase tracking-wider text-[10px]"
                 >
                   <Check className="w-4 h-4 shrink-0" />
                   <span>{saving ? "Writing..." : "Save parameters"}</span>
@@ -156,8 +156,8 @@ export function SettingsView({
 
           {/* Section 2: Active User Session */}
           <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
-            <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1 font-display border-b pb-2">
-              <UserCheck className="w-5 h-5 text-[#2A9D8F]" />
+            <h3 className="text-sm font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1 font-display border-b pb-2">
+              <UserCheck className="w-5 h-5 text-[#10B981]" />
               <span>Operator Session Diagnostics</span>
             </h3>
 
@@ -168,7 +168,7 @@ export function SettingsView({
               </div>
               <div className="p-3 bg-gray-50 rounded-xl">
                 <span className="text-gray-400 block text-[9px] uppercase tracking-wide mb-0.5 font-mono">Assigned role security level</span>
-                <span className="font-extrabold text-[#0F4C81] uppercase tracking-wider">{profile?.role || "sales staff"}</span>
+                <span className="font-extrabold text-[#166534] uppercase tracking-wider">{profile?.role || "sales staff"}</span>
               </div>
               <div className="p-3 bg-gray-50 rounded-xl">
                 <span className="text-gray-400 block text-[9px] uppercase tracking-wide mb-0.5">Corporate email id</span>
@@ -176,7 +176,7 @@ export function SettingsView({
               </div>
               <div className="p-3 bg-gray-50 rounded-xl">
                 <span className="text-gray-400 block text-[9px] uppercase tracking-wide mb-0.5">Primary telecom contact</span>
-                <span className="font-mono text-gray-700">{profile?.phone || "+91 98765 43210"}</span>
+                <span className="font-mono text-gray-700">{profile?.phone || "Not specified"}</span>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ export function SettingsView({
 
 
           <div className="bg-[#FFFFFF] p-5 border border-gray-150 rounded-2xl flex items-center gap-3">
-            <Building className="w-8 h-8 text-[#0F4C81]" />
+            <Building className="w-8 h-8 text-[#166534]" />
             <div>
               <span className="text-gray-400 font-mono text-[9px] block uppercase tracking-wide">AI Engine deployment</span>
               <span className="text-xs text-slate-800 font-extrabold block mt-0.5">Google Cloud Run • Port 3000</span>

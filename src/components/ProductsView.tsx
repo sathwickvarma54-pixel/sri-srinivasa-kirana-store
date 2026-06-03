@@ -18,12 +18,12 @@ import {
 import { Product, Transaction, Supplier } from "../types";
 
 const CATEGORY_COLORS = {
-  Grocery: "#0F4C81",
-  Dairy: "#2A9D8F",
+  Grocery: "#166534",
+  Dairy: "#10B981",
   Beverage: "#F4A261",
   FMCG: "#E63946",
   Stationery: "#9C27B0",
-  Snacks: "#F5A623",
+  Snacks: "#F59E0B",
   Other: "#718096"
 };
 
@@ -233,7 +233,7 @@ export function ProductsView({
       <div className="space-y-6">
         <button
           onClick={() => setDetailedProduct(null)}
-          className="flex items-center gap-1.5 text-xs font-bold text-[#0F4C81] hover:underline"
+          className="flex items-center gap-1.5 text-xs font-bold text-[#166534] hover:underline"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Product Database</span>
@@ -242,7 +242,7 @@ export function ProductsView({
         <div className="bg-white p-6 border border-gray-100 shadow-sm rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-4">
             <div>
-              <span className="text-[10px] font-bold tracking-wider uppercase bg-[#0F4C81] text-white px-2 py-0.5 rounded-lg">
+              <span className="text-[10px] font-bold tracking-wider uppercase bg-[#166534] text-white px-2 py-0.5 rounded-lg">
                 {detailedProduct.category}
               </span>
               <h2 className="text-2xl font-bold tracking-tight text-gray-900 mt-2 font-display">
@@ -266,7 +266,7 @@ export function ProductsView({
               </div>
               <div className="p-3 bg-gray-50 rounded-xl">
                 <span className="text-gray-400 block uppercase tracking-wider text-[9px] font-bold">Current Stock</span>
-                <span className="font-mono font-bold text-[#0F4C81] text-base">{detailedProduct.currentStock} {detailedProduct.unit}</span>
+                <span className="font-mono font-bold text-[#166534] text-base">{detailedProduct.currentStock} {detailedProduct.unit}</span>
               </div>
               <div className="p-3 bg-gray-50 rounded-xl">
                 <span className="text-gray-400 block uppercase tracking-wider text-[9px] font-bold">Purchase Rate</span>
@@ -280,7 +280,7 @@ export function ProductsView({
           </div>
 
           <div className="p-5 border border-gray-100 rounded-xl bg-slate-50 flex flex-col justify-between">
-            <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider border-b border-gray-200 pb-2">30D Movement Aggregates</h3>
+            <h3 className="text-sm font-bold text-[#166534] uppercase tracking-wider border-b border-gray-200 pb-2">30D Movement Aggregates</h3>
             <div className="space-y-4 my-4 font-sans text-xs">
               <div className="flex justify-between items-center">
                 <span className="flex items-center gap-1.5 text-gray-500 font-medium">
@@ -305,7 +305,7 @@ export function ProductsView({
 
         {/* Detailed history table */}
         <div className="bg-white p-5 border border-gray-100 shadow-sm rounded-2xl">
-          <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider mb-3 flex items-center gap-1.5 font-display">
+          <h3 className="text-sm font-bold text-[#166534] uppercase tracking-wider mb-3 flex items-center gap-1.5 font-display">
             <History className="w-4 h-4" />
             <span>Product Transaction Ledger (Last 20)</span>
           </h3>
@@ -369,7 +369,7 @@ export function ProductsView({
         {canEdit && (
           <button
             onClick={handleOpenAddModal}
-            className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5 self-start md:self-auto"
+            className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus className="w-4 h-4" />
             <span>Add New Product SKU</span>
@@ -383,7 +383,7 @@ export function ProductsView({
           <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
           <input
             type="text"
-            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#166534]"
             placeholder="Search name, SKU, or barcode..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -407,7 +407,7 @@ export function ProductsView({
           <label className="flex items-center gap-1.5 text-gray-600 font-medium cursor-pointer">
             <input
               type="checkbox"
-              className="rounded text-[#0F4C81] focus:ring-[#0F4C81] w-4 h-4"
+              className="rounded text-[#166534] focus:ring-[#166534] w-4 h-4"
               checked={lowStockOnly}
               onChange={(e) => setLowStockOnly(e.target.checked)}
             />
@@ -417,7 +417,7 @@ export function ProductsView({
           <label className="flex items-center gap-1.5 text-gray-600 font-medium cursor-pointer">
             <input
               type="checkbox"
-              className="rounded text-[#0F4C81] focus:ring-[#0F4C81] w-4 h-4"
+              className="rounded text-[#166534] focus:ring-[#166534] w-4 h-4"
               checked={expiringSoonOnly}
               onChange={(e) => setExpiringSoonOnly(e.target.checked)}
             />
@@ -428,7 +428,11 @@ export function ProductsView({
 
       {/* Products Table Card */}
       <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-        {filteredProducts.length === 0 ? (
+        {products.length === 0 ? (
+          <div className="py-12 text-center text-gray-500 text-xs">
+            No products available
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <div className="py-12 text-center text-gray-500 text-xs">
             No products found matching active filters. Try resetting terms.
           </div>
@@ -494,7 +498,7 @@ export function ProductsView({
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => setDetailedProduct(p)}
-                            className="p-1.5 hover:bg-[#0F4C81]/10 text-[#0F4C81] rounded-lg transition-colors"
+                            className="p-1.5 hover:bg-[#166534]/10 text-[#166534] rounded-lg transition-colors"
                             title="Trace Movement History"
                           >
                             <History className="w-4 h-4" />
@@ -515,7 +519,7 @@ export function ProductsView({
                             <>
                               <button
                                 onClick={() => handleOpenEdit(p)}
-                                className="p-1.5 hover:bg-amber-100 text-[#F5A623] rounded-lg transition-colors"
+                                className="p-1.5 hover:bg-amber-100 text-[#F59E0B] rounded-lg transition-colors"
                                 title="Edit Product Metrics"
                               >
                                 <Edit3 className="w-4 h-4" />
@@ -549,8 +553,8 @@ export function ProductsView({
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-xs font-sans">
           <div className="bg-white rounded-2xl border w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <h2 className="text-base font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1.5 font-display">
-                <PackageCheck className="w-5 h-5 text-[#F5A623]" />
+              <h2 className="text-base font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1.5 font-display">
+                <PackageCheck className="w-5 h-5 text-[#F59E0B]" />
                 <span>{editingProduct ? `Edit Product: ${editingProduct.productName}` : "Add New Catalog Product"}</span>
               </h2>
               <button 
@@ -558,7 +562,7 @@ export function ProductsView({
                   setIsAddModalOpen(false);
                   setEditingProduct(null);
                 }} 
-                className="p-1 text-gray-400 hover:text-gray-600 rounded-lg"
+                className="p-1 text-gray-400 hover:text-gray-650 rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -571,7 +575,7 @@ export function ProductsView({
                   <input
                     type="text"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     placeholder="Amul Butter 500g"
                     value={prodForm.productName}
                     onChange={(e) => setProdForm({ ...prodForm, productName: e.target.value })}
@@ -583,7 +587,7 @@ export function ProductsView({
                   <label className="block text-gray-400 uppercase tracking-wider text-[10px] font-bold mb-1">Local / Regional Alias</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     placeholder="Kaju Makkhan / Chai Patti"
                     value={prodForm.localName}
                     onChange={(e) => setProdForm({ ...prodForm, localName: e.target.value })}
@@ -632,7 +636,7 @@ export function ProductsView({
                   <input
                     type="text"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     value={prodForm.sku}
                     onChange={(e) => setProdForm({ ...prodForm, sku: e.target.value })}
                   />
@@ -642,7 +646,7 @@ export function ProductsView({
                   <label className="block text-gray-400 uppercase tracking-wider text-[10px] font-bold mb-1">EAN/Barcode</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     placeholder="8901..."
                     value={prodForm.barcode}
                     onChange={(e) => setProdForm({ ...prodForm, barcode: e.target.value })}
@@ -653,7 +657,7 @@ export function ProductsView({
                   <label className="block text-gray-400 uppercase tracking-wider text-[10px] font-bold mb-1">Store Shelf Location</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     placeholder="Rack B-1"
                     value={prodForm.storageLocation}
                     onChange={(e) => setProdForm({ ...prodForm, storageLocation: e.target.value })}
@@ -668,7 +672,7 @@ export function ProductsView({
                     type="number"
                     step="0.01"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     value={prodForm.purchasePrice || ""}
                     onChange={(e) => setProdForm({ ...prodForm, purchasePrice: parseFloat(e.target.value) || 0 })}
                   />
@@ -681,7 +685,7 @@ export function ProductsView({
                     type="number"
                     step="0.01"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     value={prodForm.sellingPrice || ""}
                     onChange={(e) => setProdForm({ ...prodForm, sellingPrice: parseFloat(e.target.value) || 0 })}
                   />
@@ -695,7 +699,7 @@ export function ProductsView({
                   <input
                     type="number"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     value={prodForm.currentStock || ""}
                     onChange={(e) => setProdForm({ ...prodForm, currentStock: parseInt(e.target.value) || 0 })}
                   />
@@ -707,7 +711,7 @@ export function ProductsView({
                   <input
                     type="number"
                     required
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-slate-800 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-[#166534]"
                     value={prodForm.minStockLevel || ""}
                     onChange={(e) => setProdForm({ ...prodForm, minStockLevel: parseInt(e.target.value) || 0 })}
                   />
@@ -718,7 +722,7 @@ export function ProductsView({
               {["Dairy", "FMCG", "Beverage", "Snacks"].includes(prodForm.category) && (
                 <div className="p-3 bg-amber-50 rounded-xl border border-amber-100">
                   <label className="block text-slate-700 uppercase tracking-wider text-[10px] font-extrabold mb-1 flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-[#F5A623]" />
+                    <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
                     <span>Perishable Category Expiry Tracker</span>
                   </label>
                   <input
@@ -771,7 +775,7 @@ export function ProductsView({
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white font-bold rounded-xl flex items-center gap-1"
+                  className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white font-bold rounded-xl flex items-center gap-1"
                 >
                   <Truck className="w-3.5 h-3.5" />
                   <span>{editingProduct ? "Update Catalog Item" : "Register Product"}</span>
@@ -787,8 +791,8 @@ export function ProductsView({
         <div className="fixed inset-0 z-50 bg-black/55 flex items-center justify-center p-4 font-sans backdrop-blur-xs">
           <div className="bg-white rounded-2xl border w-full max-w-sm p-5 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-              <h3 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider font-display">Quick SKU Stock Volume</h3>
-              <button onClick={() => setQuickStockProduct(null)} className="p-1 text-gray-400 hover:text-gray-500 rounded"><X className="w-4 h-4" /></button>
+              <h3 className="text-sm font-bold text-[#166534] uppercase tracking-wider font-display">Quick SKU Stock Volume</h3>
+              <button onClick={() => setQuickStockProduct(null)} className="p-1 text-gray-400 hover:text-gray-505 rounded"><X className="w-4 h-4" /></button>
             </div>
             <div className="space-y-2 text-xs">
               <p className="text-gray-500 font-semibold">{quickStockProduct.productName}</p>
@@ -801,7 +805,7 @@ export function ProductsView({
                   <label className="text-[9px] text-gray-400 block font-bold uppercase tracking-widest mb-1.5 font-mono">Target Count</label>
                   <input
                     type="number"
-                    className="w-full px-3 py-2 border rounded-xl text-center text-sm font-mono font-bold focus:ring-1 focus:ring-[#0F4C81]"
+                    className="w-full px-3 py-2 border rounded-xl text-center text-sm font-mono font-bold focus:ring-1 focus:ring-[#166534]"
                     value={quickStockValue}
                     onChange={(e) => setQuickStockValue(parseInt(e.target.value) || 0)}
                   />
@@ -810,8 +814,8 @@ export function ProductsView({
             </div>
             <div className="flex justify-end gap-2 text-xs">
               <button onClick={() => setQuickStockProduct(null)} className="px-3 py-1.5 bg-gray-100 hover:bg-gray-150 text-gray-600 rounded-lg">Cancel</button>
-              <button onClick={handleQuickStockSave} className="px-3 py-1.5 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white font-bold rounded-lg shadow-sm">Save Adjustments</button>
-            </div>
+              <button onClick={handleQuickStockSave} className="px-3 py-1.5 bg-[#166534] hover:bg-[#14532D] text-white font-bold rounded-lg shadow-sm">Save Adjustments</button>
+            </div>        
           </div>
         </div>
       )}

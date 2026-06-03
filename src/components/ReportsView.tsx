@@ -228,7 +228,7 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
               onClick={() => setActiveTab(tab.id as any)}
               className={`py-3 px-4 flex items-center gap-1.5 border-b-2 transition-all font-display ${
                 isActive 
-                  ? "border-[#0F4C81] text-[#0F4C81] font-bold" 
+                  ? "border-[#166534] text-[#166534] font-bold" 
                   : "border-transparent text-gray-400 hover:text-gray-600 hover:border-gray-300"
               }`}
             >
@@ -293,7 +293,7 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
                 activeTab === "sales" ? exportSalesPDF :
                 activeTab === "expiry" ? exportExpiryPDF : exportValuanPDF // generic helper
               }
-              className="py-1.5 px-3 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white font-extrabold rounded-xl flex items-center gap-1 shadow-sm uppercase tracking-wider text-[9px]"
+              className="py-1.5 px-3 bg-[#166534] hover:bg-[#14532D] text-white font-extrabold rounded-xl flex items-center gap-1 shadow-sm uppercase tracking-wider text-[9px]"
             >
               <FileText className="w-3.5 h-3.5 shrink-0" />
               <span>Full PDF (jsPDF)</span>
@@ -307,9 +307,9 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
         <div className="bg-white border rounded-2xl overflow-hidden shadow-sm shadow-slate-100 space-y-4 p-5">
           {/* Header metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium text-gray-500 border-b border-gray-100 pb-4">
-            <div className="p-3 bg-indigo-50 border border-indigo-100 text-indigo-950 rounded-xl">
-              <span className="text-[9px] block uppercase font-bold tracking-widest text-[#0F4C81]">Wholesale Asset Cost</span>
-              <span className="text-xl font-bold font-mono text-[#0F4C81]">₹{valuationReport.grandCost.toLocaleString("en-IN")}</span>
+            <div className="p-3 bg-emerald-50/50 border border-emerald-100 text-emerald-950 rounded-xl">
+              <span className="text-[9px] block uppercase font-bold tracking-widest text-[#166534]">Wholesale Asset Cost</span>
+              <span className="text-xl font-bold font-mono text-[#166534]">₹{valuationReport.grandCost.toLocaleString("en-IN")}</span>
             </div>
             <div className="p-3 bg-emerald-50 border border-emerald-100 text-emerald-950 rounded-xl">
               <span className="text-[9px] block uppercase font-bold tracking-widest text-emerald-700">Gross Shelf Valuation</span>
@@ -321,80 +321,94 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-gray-600 border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b text-gray-400 font-bold uppercase text-[9px] tracking-wider">
-                  <th className="py-2.5 px-3">EAN SKU</th>
-                  <th className="py-2.5 px-3">Product Name</th>
-                  <th className="py-2.5 px-3">Shelf stock</th>
-                  <th className="py-2.5 px-3 text-right">Purchase rate</th>
-                  <th className="py-2.5 px-3 text-right">Selling rate</th>
-                  <th className="py-2.5 px-3 text-right">Aggregate Cost</th>
-                  <th className="py-2.5 px-3 text-right">Profit Markup</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 font-mono text-[11px]">
-                {valuationReport.rows.map(r => (
-                  <tr key={r.id} className="hover:bg-gray-50 font-medium">
-                    <td className="py-2.5 px-3 shrink-0 text-slate-400">{r.sku}</td>
-                    <td className="py-2.5 px-3 font-sans font-bold text-gray-800">{r.productName}</td>
-                    <td className="py-2.5 px-3 font-bold text-slate-600">{r.currentStock} {r.unit}</td>
-                    <td className="py-2.5 px-3 text-right text-gray-500">₹{r.purchasePrice}</td>
-                    <td className="py-2.5 px-3 text-right text-slate-700">₹{r.sellingPrice}</td>
-                    <td className="py-2.5 px-3 text-right font-extrabold text-slate-900">₹{r.lineCost.toLocaleString("en-IN")}</td>
-                    <td className="py-2.5 px-3 text-right text-emerald-700 font-bold bg-emerald-50/40">{r.profitMargin}%</td>
+          {products.length === 0 ? (
+            <div className="py-12 text-center text-gray-500 text-xs">
+              No products available
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-gray-600 border-collapse">
+                <thead>
+                  <tr className="bg-gray-50 border-b text-gray-400 font-bold uppercase text-[9px] tracking-wider">
+                    <th className="py-2.5 px-3">EAN SKU</th>
+                    <th className="py-2.5 px-3">Product Name</th>
+                    <th className="py-2.5 px-3">Shelf stock</th>
+                    <th className="py-2.5 px-3 text-right">Purchase rate</th>
+                    <th className="py-2.5 px-3 text-right">Selling rate</th>
+                    <th className="py-2.5 px-3 text-right">Aggregate Cost</th>
+                    <th className="py-2.5 px-3 text-right">Profit Markup</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-100 font-mono text-[11px]">
+                  {valuationReport.rows.map(r => (
+                    <tr key={r.id} className="hover:bg-gray-50 font-medium">
+                      <td className="py-2.5 px-3 shrink-0 text-slate-400">{r.sku}</td>
+                      <td className="py-2.5 px-3 font-sans font-bold text-gray-800">{r.productName}</td>
+                      <td className="py-2.5 px-3 font-bold text-slate-600">{r.currentStock} {r.unit}</td>
+                      <td className="py-2.5 px-3 text-right text-gray-500">₹{r.purchasePrice}</td>
+                      <td className="py-2.5 px-3 text-right text-slate-700">₹{r.sellingPrice}</td>
+                      <td className="py-2.5 px-3 text-right font-extrabold text-slate-900">₹{r.lineCost.toLocaleString("en-IN")}</td>
+                      <td className="py-2.5 px-3 text-right text-emerald-700 font-bold bg-emerald-50/40">{r.profitMargin}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
 
       {activeTab === "sales" && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-sans">
-          {/* Sales chart */}
-          <div className="lg:col-span-2 bg-white p-5 border border-gray-100 shadow-sm rounded-2xl">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Gross Revenue Chart Velocity</h4>
-            <div className="h-60">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={salesReportData.list}>
-                  <XAxis dataKey="formattedDate" stroke="#94A3B8" fontSize={10} tickLine={false} />
-                  <YAxis stroke="#94A3B8" fontSize={10} tickLine={false} axisLine={false} />
-                  <Tooltip formatter={(value) => [`₹${value}`, "Daily Sales"]} />
-                  <Bar dataKey="Sales (₹)" fill="#0F4C81" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+        transactions.filter(t => t.type === "outward").length === 0 ? (
+          <div className="bg-white p-8 text-center text-gray-500 text-xs border border-gray-150 rounded-2xl shadow-sm">
+            No sales records found
           </div>
-
-          <div className="bg-white p-5 border border-gray-100 shadow-sm rounded-2xl flex flex-col justify-between">
-            <div>
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Metrics Summary</h4>
-              <div className="space-y-4 my-4 font-sans text-xs font-medium text-gray-500">
-                <div className="p-3 bg-blue-50 text-blue-950 rounded-xl">
-                  <span className="text-[10px] uppercase font-bold text-blue-700 block mb-0.5">Aggregate gross Sales volume</span>
-                  <span className="text-2xl font-bold font-mono text-blue-900">₹{salesReportData.totalVolume.toLocaleString("en-IN")}</span>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-xl flex justify-between items-center text-xs">
-                  <span>Period ticket invoices:</span>
-                  <span className="font-mono font-bold text-gray-800">{salesReportData.list.reduce((sum, s) => sum + s.transactionCount, 0)} counter ticks</span>
-                </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-sans">
+            {/* Sales chart */}
+            <div className="lg:col-span-2 bg-white p-5 border border-gray-100 shadow-sm rounded-2xl">
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Gross Revenue Chart Velocity</h4>
+              <div className="h-60">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={salesReportData.list}>
+                    <XAxis dataKey="formattedDate" stroke="#94A3B8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94A3B8" fontSize={10} tickLine={false} axisLine={false} />
+                    <Tooltip formatter={(value) => [`₹${value}`, "Daily Sales"]} />
+                    <Bar dataKey="Sales (₹)" fill="#166534" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </div>
-            <div className="text-[11px] text-gray-400 leading-relaxed italic p-2.5 bg-gray-50 rounded-lg">
-              *コントロール periods aggregate daily outward checkout billing items perfectly.
+
+            <div className="bg-white p-5 border border-gray-100 shadow-sm rounded-2xl flex flex-col justify-between">
+              <div>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Metrics Summary</h4>
+                <div className="space-y-4 my-4 font-sans text-xs font-medium text-gray-500">
+                  <div className="p-3 bg-emerald-50 text-emerald-950 rounded-xl">
+                    <span className="text-[10px] uppercase font-bold text-[#166534] block mb-0.5">Aggregate gross Sales volume</span>
+                    <span className="text-2xl font-bold font-mono text-[#166534]">₹{salesReportData.totalVolume.toLocaleString("en-IN")}</span>
+                  </div>
+                  <div className="p-3 bg-gray-50 rounded-xl flex justify-between items-center text-xs">
+                    <span>Period ticket invoices:</span>
+                    <span className="font-mono font-bold text-gray-800">{salesReportData.list.reduce((sum, s) => sum + s.transactionCount, 0)} counter ticks</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-[11px] text-gray-400 leading-relaxed italic p-2.5 bg-gray-50 rounded-lg">
+                *コントロール periods aggregate daily outward checkout billing items perfectly.
+              </div>
             </div>
           </div>
-        </div>
+        )
       )}
 
       {activeTab === "expiry" && (
         <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
           <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest border-b pb-2">Expiring next 30-45 days</h4>
           
-          {expiryReportData.length === 0 ? (
+          {products.length === 0 ? (
+            <div className="py-8 text-center text-xs text-gray-450">No products available</div>
+          ) : expiryReportData.length === 0 ? (
             <div className="py-8 text-center text-xs text-gray-450">🎉 Perfect! No products are expiring within the next 45 days.</div>
           ) : (
             <div className="overflow-x-auto">
@@ -417,7 +431,7 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
                         <td className="py-2.5 px-3 shrink-0 text-slate-400">{e.sku}</td>
                         <td className="py-2.5 px-3 font-sans font-bold text-gray-800">{e.productName}</td>
                         <td className="py-2.5 px-3 font-sans font-semibold text-gray-500">{e.category}</td>
-                        <td className="py-2.5 px-3 font-bold text-[#0F4C81]">{e.currentStock} {e.unit}</td>
+                        <td className="py-2.5 px-3 font-bold text-[#166534]">{e.currentStock} {e.unit}</td>
                         <td className="py-2.5 px-3 text-gray-500 font-bold">{e.expiryDate}</td>
                         <td className="py-2.5 px-1 text-right">
                           <span className={`px-2.5 py-0.5 rounded-lg font-extrabold text-[10px] ${isUrgent ? "bg-red-100 text-red-705" : "bg-orange-100 text-orange-705"}`}>
@@ -437,35 +451,39 @@ export function ReportsView({ products, transactions }: ReportsViewProps) {
       {activeTab === "category" && (
         <div className="bg-white p-5 border border-gray-150 rounded-2xl shadow-sm space-y-4">
           <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest border-b pb-2">Contrasting category retail markups</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-gray-600 border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b text-gray-400 font-bold uppercase text-[9px] tracking-wider">
-                  <th className="py-3 px-3">Category Lane</th>
-                  <th className="py-3 px-3 text-right">Aggregate Purchase Value</th>
-                  <th className="py-3 px-3 text-right">Expected Retail value</th>
-                  <th className="py-3 px-3 text-right">Expected Profit Yield</th>
-                  <th className="py-3 px-3 text-right">Expected Markups (%)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 text-[11px] font-mono font-medium">
-                {categoryMargins.map(c => (
-                  <tr key={c.category} className="hover:bg-gray-50">
-                    <td className="py-3 px-3 font-sans font-extrabold text-[#0F4C81]">{c.category}</td>
-                    <td className="py-3 px-3 text-right text-gray-500">₹{c.cost.toLocaleString("en-IN")}</td>
-                    <td className="py-3 px-3 text-right text-slate-800">₹{c.revenue.toLocaleString("en-IN")}</td>
-                    <td className="py-3 px-3 text-right text-gray-700 font-bold">₹{(c.revenue - c.cost).toLocaleString("en-IN")}</td>
-                    <td className="py-3 px-3 text-right text-emerald-800 font-extrabold bg-[#2A9D8F]/10">
-                      <div className="flex items-center justify-end gap-1 font-bold">
-                        <span>{c.margin}%</span>
-                        <Percent className="w-3.5 h-3.5 shrink-0" />
-                      </div>
-                    </td>
+          {products.length === 0 ? (
+            <div className="py-8 text-center text-xs text-gray-450">No products available</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-gray-600 border-collapse">
+                <thead>
+                  <tr className="bg-gray-50 border-b text-gray-400 font-bold uppercase text-[9px] tracking-wider">
+                    <th className="py-3 px-3">Category Lane</th>
+                    <th className="py-3 px-3 text-right">Aggregate Purchase Value</th>
+                    <th className="py-3 px-3 text-right">Expected Retail value</th>
+                    <th className="py-3 px-3 text-right">Expected Profit Yield</th>
+                    <th className="py-3 px-3 text-right">Expected Markups (%)</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-100 text-[11px] font-mono font-medium">
+                  {categoryMargins.map(c => (
+                    <tr key={c.category} className="hover:bg-gray-50">
+                      <td className="py-3 px-3 font-sans font-extrabold text-[#166534]">{c.category}</td>
+                      <td className="py-3 px-3 text-right text-gray-500">₹{c.cost.toLocaleString("en-IN")}</td>
+                      <td className="py-3 px-3 text-right text-slate-800">₹{c.revenue.toLocaleString("en-IN")}</td>
+                      <td className="py-3 px-3 text-right text-gray-700 font-bold">₹{(c.revenue - c.cost).toLocaleString("en-IN")}</td>
+                      <td className="py-3 px-3 text-right text-emerald-800 font-extrabold bg-[#10B981]/10">
+                        <div className="flex items-center justify-end gap-1 font-bold">
+                          <span>{c.margin}%</span>
+                          <Percent className="w-3.5 h-3.5 shrink-0" />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
     </div>

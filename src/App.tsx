@@ -18,8 +18,10 @@ import { ReportsView } from "./components/ReportsView";
 import { NotificationsView } from "./components/NotificationsView";
 import { SettingsView } from "./components/SettingsView";
 import { Product, Transaction, Supplier, Notification, StoreSettings } from "./types";
-import { db, handleFirestoreError, OperationType } from "./firebase";
 import { 
+  db, 
+  handleFirestoreError, 
+  OperationType,
   collection, 
   addDoc, 
   updateDoc, 
@@ -27,7 +29,7 @@ import {
   doc, 
   getDoc,
   onSnapshot 
-} from "firebase/firestore";
+} from "./firebase";
 import toast, { Toaster } from "react-hot-toast";
 
 // Icons for navigation
@@ -47,7 +49,7 @@ import {
 } from "lucide-react";
 
 export default function App() {
-  const { user, profile, loading: authLoading, login, loginWithGoogle, logout } = useAuth();
+  const { user, profile, loading: authLoading, login, logout } = useAuth();
 
   const isAuthenticated = !!user && !!profile;
   const isOwnerOrManager = profile ? (profile.role === "owner" || profile.role === "manager") : false;
@@ -105,11 +107,11 @@ export default function App() {
           const diffDays = Math.ceil((expNum - todayNum) / (1000 * 60 * 60 * 24));
           
           if (diffDays >= 0 && diffDays <= 30) {
-            // Ensure no duplicate warnings are triggered today
+            const todayRealDateStr = new Date().toISOString().split("T")[0];
             const alreadyCreatedToday = notifications.some(n => 
               n.type === "expiry" && 
               n.productId === p.id && 
-              n.timestamp.startsWith(todayStr)
+              n.timestamp.startsWith(todayRealDateStr)
             );
 
             if (!alreadyCreatedToday) {
@@ -278,6 +280,17 @@ export default function App() {
     }
   };
 
+  const handleClearAllNotifications = async () => {
+    try {
+      for (const n of notifications) {
+        await deleteDoc(doc(db, "notifications", n.id));
+      }
+      toast.success("All notifications permanently deleted.");
+    } catch (err: any) {
+      toast.error(`Failed to clear notifications: ${err.message}`);
+    }
+  };
+
   // Quick Action triggering from low stock dashboard buttons
   const handleTriggerQuickRestockInward = async (productId: string) => {
     const prod = products.find(p => p.id === productId);
@@ -312,7 +325,7 @@ export default function App() {
     return (
       <>
         <Toaster position="top-right" />
-        <AuthPage login={login} loginWithGoogle={loginWithGoogle} />
+        <AuthPage login={login} />
       </>
     );
   }
@@ -333,24 +346,26 @@ export default function App() {
   const unreadAlertsCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] flex flex-col md:flex-row font-sans text-gray-900 leading-normal">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row font-sans text-gray-900 leading-normal">
       <Toaster position="top-right" />
 
       {/* DESKTOP SIDEBAR NAVIGATION */}
-      <aside className="w-60 bg-[#0F4C81] text-[#E8F0FE] hidden md:flex flex-col justify-between shrink-0 h-screen sticky top-0 border-r border-[#083260]/60 shadow-lg">
+      <aside className="w-60 bg-[#166534] text-[#DCF2E8] hidden md:flex flex-col justify-between shrink-0 h-screen sticky top-0 border-r border-[#14532D]/60 shadow-lg">
         <div>
-          <div className="p-5 flex items-center gap-3 border-b border-white/10 bg-[#083260]/45">
-            <div className="w-10 h-10 bg-[#F5A623] rounded-xl flex items-center justify-center shadow-md text-white shrink-0">
+          <div className="p-5 flex items-center gap-3 border-b border-white/10 bg-[#14532D]/45">
+            <div className="w-10 h-10 bg-[#F59E0B] rounded-xl flex items-center justify-center shadow-md text-white shrink-0">
               <Store className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-sm font-extrabold tracking-tight font-display text-white">Uma Maheshwara Kirana & General Stores</h1>
-              <span className="text-[9px] uppercase tracking-widest text-[#F5A623] font-bold block leading-none mt-0.5">India B2B Retail</span>
+              <h1 className="text-sm font-extrabold tracking-tight font-display text-white">
+                {storeSettings?.storeName ?? "Sri Srinivasa Kirana & General Store"}
+              </h1>
+              <span className="text-[9px] uppercase tracking-widest text-[#F59E0B] font-bold block leading-none mt-0.5">India B2B Retail</span>
             </div>
           </div>
           
           <nav className="px-3 space-y-1.5 mt-6 flex-1">
-            <span className="text-[9px] font-extrabold text-[#E8F0FE]/40 block uppercase tracking-widest px-3 mb-2 font-mono">Main navigation</span>
+            <span className="text-[9px] font-extrabold text-[#DCF2E8]/40 block uppercase tracking-widest px-3 mb-2 font-mono">Main navigation</span>
             {visibleNavs.map(item => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -363,16 +378,16 @@ export default function App() {
                   }}
                   className={`w-full px-3 py-2.5 rounded-xl text-left flex items-center justify-between text-xs font-semibold tracking-wide transition-all ${
                     isActive 
-                      ? "bg-[#F5A623]/20 border-r-4 border-[#F5A623] rounded-r-none rounded-l-lg text-white font-extrabold" 
-                      : "text-[#E8F0FE]/80 hover:bg-white/10 hover:text-white"
+                      ? "bg-[#F59E0B]/20 border-r-4 border-[#F59E0B] rounded-r-none rounded-l-lg text-white font-extrabold" 
+                      : "text-[#DCF2E8]/80 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4 shrink-0 text-[#F5A623]" />
+                    <Icon className="w-4 h-4 shrink-0 text-[#F59E0B]" />
                     <span>{item.label}</span>
                   </div>
                   {item.id === "alerts" && unreadAlertsCount > 0 && (
-                    <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold ${isActive ? "bg-white text-[#0F4C81]" : "bg-[#E63946] text-white"}`}>
+                    <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold ${isActive ? "bg-white text-[#166534]" : "bg-[#EF4444] text-white"}`}>
                       {unreadAlertsCount}
                     </span>
                   )}
@@ -382,26 +397,26 @@ export default function App() {
           </nav>
         </div>
 
-        <div className="p-4 mt-auto border-t border-white/10 bg-[#083260] flex items-center justify-between">
+        <div className="p-4 mt-auto border-t border-white/10 bg-[#14532D] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#1A6DB5] flex items-center justify-center font-extrabold text-white text-[11px] uppercase shadow-inner">
+            <div className="w-8 h-8 rounded-full bg-[#10B981] flex items-center justify-center font-extrabold text-white text-[11px] uppercase shadow-inner">
               {profile.name ? profile.name.slice(0, 2).toUpperCase() : "OP"}
             </div>
             <div className="flex flex-col">
               <span className="text-[11px] font-bold text-white tracking-tight leading-none mb-0.5">
                 {profile.name}
               </span>
-              <span className="text-[9px] uppercase tracking-wider text-[#F5A623] font-mono font-bold leading-none">
+              <span className="text-[9px] uppercase tracking-wider text-[#F59E0B] font-mono font-bold leading-none">
                 {profile.role}
               </span>
             </div>
           </div>
           <button
             onClick={logout}
-            className="p-1.5 hover:bg-white/10 text-[#E8F0FE]/70 hover:text-white rounded-lg transition-colors animate-pulse"
+            className="p-1.5 hover:bg-white/10 text-[#DCF2E8]/70 hover:text-white rounded-lg transition-colors"
             title="Logout Session"
           >
-            <LogOut className="w-4 h-4 text-[#F5A623]" />
+            <LogOut className="w-4 h-4 text-[#F59E0B]" />
           </button>
         </div>
       </aside>
@@ -420,13 +435,13 @@ export default function App() {
                 <Menu className="w-5 h-5" />
               </button>
               <div className="flex items-center gap-2 border-l border-gray-250 pl-3 md:border-l-0 md:pl-0">
-                <div className="p-2 bg-[#0F4C81] rounded-xl text-white md:hidden animate-bounce">
-                  <Store className="w-4 h-4 text-[#F5A623]" />
+                <div className="p-2 bg-[#166534] rounded-xl text-white md:hidden animate-bounce">
+                  <Store className="w-4 h-4 text-[#F59E0B]" />
                 </div>
                 <div>
-                  <span className="text-[9px] font-extrabold text-[#0F4C81] block uppercase tracking-widest font-mono">India B2B Retail</span>
-                  <h1 className="text-sm font-bold text-[#0F4C81] font-display">
-                    {storeSettings?.storeName || "Uma Maheshwara Kirana Stores"}
+                  <span className="text-[9px] font-extrabold text-[#166534] block uppercase tracking-widest font-mono">India B2B Retail</span>
+                  <h1 className="text-sm font-bold text-[#166534] font-display">
+                    {storeSettings?.storeName ?? "Sri Srinivasa Kirana & General Store"}
                   </h1>
                 </div>
               </div>
@@ -471,7 +486,7 @@ export default function App() {
             <div className="w-64 bg-white h-full p-6 space-y-4 flex flex-col justify-between shadow-2xl relative">
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b pb-3.5">
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#0F4C81] font-mono">B2B Mobile Hub</span>
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#166534] font-mono">B2B Mobile Hub</span>
                   <button onClick={() => setMobileMenuOpen(false)} className="p-1 rounded text-gray-400 hover:text-gray-650">
                     <X className="w-5 h-5" />
                   </button>
@@ -490,8 +505,8 @@ export default function App() {
                         }}
                         className={`w-full px-3 py-2.5 rounded-xl text-left flex items-center justify-between text-xs font-bold transition-all ${
                           isActive 
-                            ? "bg-[#0F4C81] text-white" 
-                            : "text-gray-500 hover:bg-[#F0F4F8]"
+                            ? "bg-[#166534] text-white" 
+                            : "text-gray-500 hover:bg-[#F8FAFC]"
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
@@ -499,7 +514,7 @@ export default function App() {
                           <span>{item.label}</span>
                         </div>
                         {item.id === "alerts" && unreadAlertsCount > 0 && (
-                          <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-[#E63946] text-white">
+                          <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-[#EF4444] text-white">
                             {unreadAlertsCount}
                           </span>
                         )}
@@ -510,7 +525,7 @@ export default function App() {
               </div>
 
               <div className="p-3 bg-gray-50 rounded-xl font-mono text-[9px] text-gray-400 text-center leading-relaxed">
-                Uma Maheshwara Kirana (v1.0.0)<br />Secured sandbox.
+                Sri Srinivasa Kirana (v1.0.0)<br />Secured sandbox.
               </div>
             </div>
             <div className="flex-1" onClick={() => setMobileMenuOpen(false)} />
@@ -580,6 +595,7 @@ export default function App() {
               notifications={notifications} 
               onMarkRead={handleMarkNotificationRead}
               onMarkAllRead={handleMarkAllNotificationsRead}
+              onClearAll={handleClearAllNotifications}
             />
           )}
 
@@ -604,7 +620,7 @@ export default function App() {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`flex flex-col items-center gap-0.5 justify-center flex-1 py-1 px-1 rounded-xl transition-all ${
-                isActive ? "text-[#0F4C81]" : "text-gray-400 hover:text-gray-600"
+                isActive ? "text-[#166534]" : "text-gray-400 hover:text-gray-600"
               }`}
             >
               <Icon className="w-4.5 h-4.5 shrink-0" />

@@ -1,4 +1,4 @@
-# Security Specification for Uma Maheshwara Kirana & General Stores
+# Security Specification for Sri Srinivasa Kirana & General Store
 
 This document specifies the security requirements and the "Dirty Dozen" payloads designed to test and harden the Firestore security rules.
 

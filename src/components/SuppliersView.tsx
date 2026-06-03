@@ -128,7 +128,7 @@ export function SuppliersView({
         </div>
         <button
           onClick={() => setIsAddOpen(true)}
-          className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+          className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
         >
           <Plus className="w-4 h-4" />
           <span>Add wholeseller</span>
@@ -140,7 +140,7 @@ export function SuppliersView({
           {/* Detailed Screen */}
           <button
             onClick={() => setDetailedSupplier(null)}
-            className="flex items-center gap-1.5 text-xs font-bold text-[#0F4C81] hover:underline"
+            className="flex items-center gap-1.5 text-xs font-bold text-[#166534] hover:underline"
           >
             <MapPin className="w-4 h-4 rotate-180" />
             <span>Return to Supplier Directory</span>
@@ -149,7 +149,7 @@ export function SuppliersView({
           <div className="bg-white p-6 border border-gray-100 shadow-sm rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-2 space-y-4">
               <div>
-                <span className="text-[9px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-lg bg-[#E8F0FE] text-[#0F4C81] border border-[#C2D7FA]">
+                <span className="text-[9px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-lg bg-emerald-50 text-[#166534] border border-emerald-250">
                   Active Partnership
                 </span>
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 mt-2.5 font-display">{detailedSupplier.supplierName}</h2>
@@ -170,8 +170,8 @@ export function SuppliersView({
 
                 <div className="p-3 bg-gray-50 rounded-xl">
                   <span className="text-gray-400 block text-[9px] font-bold uppercase tracking-wide mb-1">Active WhatsApp Support</span>
-                  <div className="flex items-center gap-1.5 text-[#2A9D8F] font-bold font-mono">
-                    <MessageSquare className="w-4 h-4 text-[#2A9D8F] shrink-0" />
+                  <div className="flex items-center gap-1.5 text-[#10B981] font-bold font-mono">
+                    <MessageSquare className="w-4 h-4 text-[#10B981] shrink-0" />
                     <span>{detailedSupplier.whatsapp}</span>
                   </div>
                 </div>
@@ -205,8 +205,8 @@ export function SuppliersView({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Table 1: Supplied Catalog SKU Items */}
             <div className="bg-white p-5 border border-gray-100 shadow-sm rounded-2xl space-y-3">
-              <h3 className="text-xs font-bold text-[#0F4C81] uppercase tracking-wider border-b border-gray-100 pb-2 flex items-center gap-1 font-display">
-                <Package className="w-4 h-4 text-[#F5A623]" />
+              <h3 className="text-xs font-bold text-[#166534] uppercase tracking-wider border-b border-gray-100 pb-2 flex items-center gap-1 font-display">
+                <Package className="w-4 h-4 text-[#F59E0B]" />
                 <span>Linked products catalog ({detailedProducts.length})</span>
               </h3>
               {detailedProducts.length === 0 ? (
@@ -220,7 +220,7 @@ export function SuppliersView({
                         <span className="text-[10px] text-gray-400 font-medium italic">SKU: {p.sku}</span>
                       </div>
                       <div className="text-right">
-                        <span className="font-mono font-bold text-[#0F4C81] block">Stock: {p.currentStock} {p.unit}</span>
+                        <span className="font-mono font-bold text-[#166534] block">Stock: {p.currentStock} {p.unit}</span>
                       </div>
                     </div>
                   ))}
@@ -230,8 +230,8 @@ export function SuppliersView({
 
             {/* Table 2: Purchase history ledger */}
             <div className="bg-white p-5 border border-gray-100 shadow-sm rounded-2xl space-y-3">
-              <h3 className="text-xs font-bold text-[#0F4C81] uppercase tracking-wider border-b border-gray-100 pb-2 flex items-center gap-1 font-display">
-                <History className="w-4 h-4 text-[#2A9D8F]" />
+              <h3 className="text-xs font-bold text-[#166534] uppercase tracking-wider border-b border-gray-100 pb-2 flex items-center gap-1 font-display">
+                <History className="w-4 h-4 text-[#10B981]" />
                 <span>Restock Invoice Ledger (Inwards)</span>
               </h3>
               {detailedInwards.length === 0 ? (
@@ -265,6 +265,10 @@ export function SuppliersView({
             </div>
           </div>
         </div>
+      ) : suppliers.length === 0 ? (
+        <div className="bg-white p-8 text-center text-gray-500 text-xs border border-gray-100 rounded-2xl shadow-sm">
+          No supplier data available
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-sans">
           {/* Master Cards Grid */}
@@ -277,8 +281,8 @@ export function SuppliersView({
               >
                 <div>
                   <div className="flex items-start justify-between">
-                    <div className="p-2.5 bg-[#F0F4F8] text-[#0F4C81] rounded-xl">
-                      <Building className="w-5 h-5 text-[#0F4C81]" />
+                    <div className="p-2.5 bg-emerald-50 text-[#166534] rounded-xl">
+                      <Building className="w-5 h-5 text-[#166534]" />
                     </div>
                     {s.pendingAmount > 0 ? (
                       <span className="text-[10px] font-bold text-red-700 bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-lg font-mono">
@@ -300,7 +304,7 @@ export function SuppliersView({
                       <span>{s.phone}</span>
                     </div>
                     <div className="flex items-center gap-1 ml-auto">
-                      <Package className="w-3.5 h-3.5 text-[#0F4C81] shrink-0" />
+                      <Package className="w-3.5 h-3.5 text-[#166534] shrink-0" />
                       <span>{agg.skus.length} catalog items</span>
                     </div>
                   </div>
@@ -309,7 +313,7 @@ export function SuppliersView({
                 <div className="border-t border-gray-50 pt-3.5 flex items-center gap-2">
                   <button
                     onClick={() => setDetailedSupplier(s)}
-                    className="flex-1 py-1.5 bg-gray-50 hover:bg-[#F0F4F8] text-[#0F4C81] text-xs font-bold rounded-lg border border-gray-200 transition-colors text-center"
+                    className="flex-1 py-1.5 bg-gray-50 hover:bg-emerald-50 text-[#166534] text-xs font-bold rounded-lg border border-gray-200 transition-colors text-center"
                   >
                     Manage records
                   </button>
@@ -334,8 +338,8 @@ export function SuppliersView({
         <div className="fixed inset-0 z-50 bg-black/55 flex items-center justify-center p-4 backdrop-blur-xs font-sans">
           <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto border">
             <div className="flex items-center justify-between border-b pb-3">
-              <h2 className="text-sm font-bold text-[#0F4C81] uppercase tracking-wider flex items-center gap-1.5 font-display">
-                <Truck className="w-5 h-5 text-[#F5A623]" />
+              <h2 className="text-sm font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1.5 font-display">
+                <Truck className="w-5 h-5 text-[#F59E0B]" />
                 <span>Register Wholeseller B2B Account</span>
               </h2>
               <button onClick={() => setIsAddOpen(false)} className="p-1 text-gray-400 hover:text-gray-500 rounded"><X className="w-5 h-5" /></button>
@@ -347,8 +351,8 @@ export function SuppliersView({
                 <input
                   type="text"
                   required
-                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#0F4C81] text-slate-800 font-bold"
-                  placeholder="E.g. Srikakulam FMCG Trading"
+                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-slate-800 font-bold"
+                  placeholder="E.g. Sri Srinivasa FMCG Trading"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -359,7 +363,7 @@ export function SuppliersView({
                   <label className="block text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Office Telephone</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#0F4C81] text-slate-800 font-mono font-bold"
+                    className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-slate-800 font-mono font-bold"
                     placeholder="+91 94..."
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -370,7 +374,7 @@ export function SuppliersView({
                   <label className="block text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">WhatsApp Broadcast No.</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#0F4C81] text-[#2A9D8F] font-mono font-bold"
+                    className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-[#10B981] font-mono font-bold"
                     placeholder="+91 94..."
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
@@ -382,7 +386,7 @@ export function SuppliersView({
                 <label className="block text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Company Street Address</label>
                 <input
                   type="text"
-                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#0F4C81] text-slate-800 font-semibold"
+                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-slate-800 font-semibold"
                   placeholder="D.No 44-5 Main Market, Visakhapatnam"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -393,7 +397,7 @@ export function SuppliersView({
                 <label className="block text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Draft Initial Unsettled Debt (₹)</label>
                 <input
                   type="number"
-                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#0F4C81] text-red-750 font-mono font-bold"
+                  className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-red-750 font-mono font-bold"
                   value={pendingAmount || ""}
                   onChange={(e) => setPendingAmount(parseInt(e.target.value) || 0)}
                 />
@@ -401,7 +405,7 @@ export function SuppliersView({
 
               <div className="flex justify-end gap-2 border-t pt-3.5">
                 <button type="button" onClick={() => setIsAddOpen(false)} className="px-3.5 py-2 bg-gray-100 text-gray-700 font-semibold rounded-xl">Cancel</button>
-                <button type="submit" className="px-3.5 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white font-bold rounded-xl shadow-sm flex items-center gap-1">
+                <button type="submit" className="px-3.5 py-2 bg-[#166534] hover:bg-[#14532D] text-white font-bold rounded-xl shadow-sm flex items-center gap-1">
                   <MailCheck className="w-3.5 h-3.5" />
                   <span>Enrol Distributor</span>
                 </button>

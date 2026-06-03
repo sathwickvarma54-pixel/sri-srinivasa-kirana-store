@@ -15,12 +15,14 @@ interface NotificationsViewProps {
   notifications: Notification[];
   onMarkRead: (notifId: string) => Promise<void>;
   onMarkAllRead: () => Promise<void>;
+  onClearAll: () => Promise<void>;
 }
 
 export function NotificationsView({ 
   notifications, 
   onMarkRead, 
-  onMarkAllRead 
+  onMarkAllRead,
+  onClearAll
 }: NotificationsViewProps) {
 
   return (
@@ -32,14 +34,25 @@ export function NotificationsView({
           <p className="text-xs text-gray-500">Track expirations, critically low item alerts, and system boot logs</p>
         </div>
         
-        {notifications.some(n => !n.isRead) && (
-          <button
-            onClick={onMarkAllRead}
-            className="px-4 py-2 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5 self-start sm:self-auto"
-          >
-            <CheckCheck className="w-4 h-4 shrink-0" />
-            <span>Mark all read</span>
-          </button>
+        {notifications.length > 0 && (
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            {notifications.some(n => !n.isRead) && (
+              <button
+                onClick={onMarkAllRead}
+                className="px-4 py-2 bg-[#166534] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+              >
+                <CheckCheck className="w-4 h-4 shrink-0" />
+                <span>Mark all read</span>
+              </button>
+            )}
+            <button
+              onClick={onClearAll}
+              className="px-4 py-2 bg-red-650 hover:bg-red-700 text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+            >
+              <Trash className="w-4 h-4 shrink-0" />
+              <span>Clear All</span>
+            </button>
+          </div>
         )}
       </div>
 
@@ -55,13 +68,13 @@ export function NotificationsView({
             return (
               <div 
                 key={n.id} 
-                className={`p-4 flex items-start justify-between gap-4 transition-colors ${IsUnread ? "bg-[#0F4C81]/5" : "hover:bg-gray-50"}`}
+                className={`p-4 flex items-start justify-between gap-4 transition-colors ${IsUnread ? "bg-[#166534]/5" : "hover:bg-gray-50"}`}
               >
                 <div className="flex gap-3">
                   {/* Icon mapped by severity */}
                   <div className={`p-2 rounded-xl shrink-0 ${
                     n.severity === "critical" ? "bg-red-50 text-[#E63946]" :
-                    n.severity === "warning" ? "bg-amber-50 text-[#F5A623]" : "bg-blue-50 text-[#0F4C81]"
+                    n.severity === "warning" ? "bg-amber-50 text-[#F59E0B]" : "bg-emerald-50 text-[#166534]"
                   }`}>
                     {n.severity === "critical" && <AlertOctagon className="w-5 h-5 shrink-0" />}
                     {n.severity === "warning" && <AlertTriangle className="w-5 h-5 shrink-0" />}
@@ -89,7 +102,7 @@ export function NotificationsView({
                   {IsUnread ? (
                     <button
                       onClick={() => onMarkRead(n.id)}
-                      className="p-1 px-3 bg-[#0F4C81] hover:bg-[#1A6DB5] text-white text-[10px] font-bold rounded-lg flex items-center gap-1.5 shadow-sm uppercase tracking-wider"
+                      className="p-1 px-3 bg-[#166534] hover:bg-[#14532D] text-white text-[10px] font-bold rounded-lg flex items-center gap-1.5 shadow-sm uppercase tracking-wider"
                       title="Dismiss Alert"
                     >
                       <Check className="w-3.5 h-3.5" />
@@ -97,7 +110,7 @@ export function NotificationsView({
                     </button>
                   ) : (
                     <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded font-bold uppercase tracking-wider flex items-center gap-1">
-                      <CheckCheck className="w-3.5 h-3.5 text-[#2A9D8F]" />
+                      <CheckCheck className="w-3.5 h-3.5 text-[#10B981]" />
                       <span>Resolved</span>
                     </span>
                   )}
