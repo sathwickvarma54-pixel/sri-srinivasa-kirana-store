@@ -36,7 +36,7 @@ export function AuthPage({ login }: AuthPageProps) {
           <Store className="w-8 h-8 text-[#F59E0B]" />
         </div>
         <h2 className="text-3xl font-extrabold text-[#166534] tracking-tight font-display">
-          Sri Srinivasa Kirana & General Store
+          Sri Venkateswara Kirana & General Store
         </h2>
         <p className="mt-2 text-sm text-gray-600 px-4">
           Smart Inventory Management for Modern Retail Stores

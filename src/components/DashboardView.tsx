@@ -161,7 +161,7 @@ export function DashboardView({ products, transactions, onTriggerQuickRestock, r
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 font-display">
-            Sri Srinivasa Kirana Dashboard
+            Sri Venkateswara Kirana Dashboard
           </h1>
           <p className="text-xs text-gray-500">
             Real-time operations monitor • Today is <span className="font-mono font-bold text-gray-700">1st Jun 2026</span>

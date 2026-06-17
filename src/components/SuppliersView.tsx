@@ -352,7 +352,7 @@ export function SuppliersView({
                   type="text"
                   required
                   className="w-full px-3 py-2 rounded-xl border focus:ring-1 focus:ring-[#166534] text-slate-800 font-bold"
-                  placeholder="E.g. Sri Srinivasa FMCG Trading"
+                  placeholder="E.g. Sri Venkateswara FMCG Trading"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />

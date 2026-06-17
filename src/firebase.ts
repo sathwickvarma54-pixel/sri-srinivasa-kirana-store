@@ -12,7 +12,7 @@ export enum OperationType {
 }
 
 export const db = { type: "database" };
-export const auth = { currentUser: { uid: "owner_uid", email: "owner@srisrinivasa.com" } };
+export const auth = { currentUser: { uid: "owner_uid", email: "owner@sriVenkateswara.com" } };
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null): never {
   console.error("Firestore Mock Error: ", error);
